@@ -24,15 +24,13 @@ If ((Get-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol').State -eq '
 
 #bitlocker
 
- $volume = Get-WmiObject win32_EncryptableVolume `
-    -Namespace root\CIMv2\Security\MicrosoftVolumeEncryption `
-    -Filter "DriveLetter = 'C:'"
+Get-BitLockerVolume
     if ($Volume.VolumeStatus -eq 'FullyEncrypted')
     {
       Write-host "jiz zasifrovano"
     }
     else
     {
-      manage-bde -on c: -s -rp
+      Enable-BitLocker -mountpoint C -EncryptionMethod Aes128 -RecoveryPasswordProtector -SkipHardwareTest
     }
-    Write-host "zasifrovano"
+   
