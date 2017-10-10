@@ -25,7 +25,7 @@ If ((Get-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol').State -eq '
 #bitlocker
 
 Get-BitLockerVolume
-    if ($Volume.VolumeStatus -eq 'FullyEncrypted')
+    if ((Get-BitLockerVolume -MountPoint C).ProtectionStatus -eq 'FullyEncrypted')
     {
       Write-host "jiz zasifrovano"
     }
